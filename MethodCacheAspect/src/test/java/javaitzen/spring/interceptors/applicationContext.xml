@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="testObject" class="javaitzen.spring.interceptors.MyLittleTestObject" />
+
+	<bean id="methodCacheAspect" class="javaitzen.spring.interceptors.MethodCacheAspect">
+		<property name="cache">
+			<ref local="methodCache" ></ref>
+		</property>
+	</bean>
+
+	<aop:config proxy-target-class="true">
+		<aop:aspect ref="methodCacheAspect">
+			<aop:pointcut id="around" expression="execution(* theBusinessMethod(..))" ></aop:pointcut>
+			<aop:around pointcut-ref="around" method="aroundAdvice" ></aop:around>
+		</aop:aspect>
+	</aop:config>
+
+	<!-- Cache Manager -->
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:javaitzen/spring/interceptors/ehcache.xml
+			</value>
+		</property>
+		<property name="shared" value="true" />
+	</bean>
+
+	<!-- Cache Provider -->
+	<bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager">
+			<ref local="cacheManager" />
+		</property>
+		<property name="cacheName">
+			<value>testCache</value>
+		</property>
+	</bean>
+
+
+</beans>

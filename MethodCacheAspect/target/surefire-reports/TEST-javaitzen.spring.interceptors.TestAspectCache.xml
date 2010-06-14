@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.519" errors="2" skipped="0" tests="2" name="javaitzen.spring.interceptors.TestAspectCache">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\bin"/>
+    <property name="java.vm.version" value="11.3-b02"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="ZA"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="Service Pack 2"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="E:\Development\workspace\MethodCacheAspect"/>
+    <property name="java.runtime.version" value="1.6.0_13-b03"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="basedir" value="E:\Development\workspace\MethodCacheAspect"/>
+    <property name="java.endorsed.dirs" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\endorsed"/>
+    <property name="os.arch" value="x86"/>
+    <property name="surefire.real.class.path" value="C:\Users\user\AppData\Local\Temp\surefirebooter3694962348008896105.jar"/>
+    <property name="java.io.tmpdir" value="C:\Users\user\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows Vista"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;E:/Development/MyEclipse 8.5/Genuitec/Common/binary/com.sun.java.jdk.win32.x86_1.6.0.013/jre/bin/client;E:/Development/MyEclipse 8.5/Genuitec/Common/binary/com.sun.java.jdk.win32.x86_1.6.0.013/jre/bin;C:/Users/user/AppData/Local/Genuitec/Pulse Explorer/jre/bin/client;C:/Users/user/AppData/Local/Genuitec/Pulse Explorer/jre/bin;C:\Program Files\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\QuickTime\QTSystem\;I.-;C:\Program Files\Common Files\Ahead\Lib\;C:\Program Files\Common Files\Ahead\Lib\;C:\Users\user\AppData\Local\Temp\8.5.0.pulseinstaller\jre\bin"/>
+    <property name="surefire.test.class.path" value="E:\Development\workspace\MethodCacheAspect\target\test-classes;E:\Development\workspace\MethodCacheAspect\target\classes;C:\Users\user\.m2\repository\org\springframework\spring-core\3.0.0.RELEASE\spring-core-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-asm\3.0.0.RELEASE\spring-asm-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\user\.m2\repository\org\springframework\spring-expression\3.0.0.RELEASE\spring-expression-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-beans\3.0.0.RELEASE\spring-beans-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-aop\3.0.0.RELEASE\spring-aop-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\user\.m2\repository\org\springframework\spring-context\3.0.0.RELEASE\spring-context-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-context-support\3.0.0.RELEASE\spring-context-support-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-tx\3.0.0.RELEASE\spring-tx-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-oxm\3.0.0.RELEASE\spring-oxm-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-test\3.0.0.RELEASE\spring-test-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\junit\junit\4.8.1\junit-4.8.1.jar;C:\Users\user\.m2\repository\org\aspectj\aspectjweaver\1.6.5\aspectjweaver-1.6.5.jar;C:\Users\user\.m2\repository\cglib\cglib\2.1_2\cglib-2.1_2.jar;C:\Users\user\.m2\repository\asm\asm\1.5.3\asm-1.5.3.jar;C:\Users\user\.m2\repository\net\sf\ehcache\ehcache-core\2.1.0\ehcache-core-2.1.0.jar;C:\Users\user\.m2\repository\org\slf4j\slf4j-api\1.5.11\slf4j-api-1.5.11.jar;C:\Users\user\.m2\repository\net\sf\ehcache\ehcache-terracotta\2.1.0\ehcache-terracotta-2.1.0.jar;C:\Users\user\.m2\repository\org\slf4j\slf4j-jdk14\1.5.11\slf4j-jdk14-1.5.11.jar;C:\Users\user\.m2\repository\log4j\log4j\1.2.12\log4j-1.2.12.jar;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+    <property name="os.version" value="6.0"/>
+    <property name="user.home" value="C:\Users\user"/>
+    <property name="user.timezone" value="Africa/Harare"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="user"/>
+    <property name="java.class.path" value="E:\Development\workspace\MethodCacheAspect\target\test-classes;E:\Development\workspace\MethodCacheAspect\target\classes;C:\Users\user\.m2\repository\org\springframework\spring-core\3.0.0.RELEASE\spring-core-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-asm\3.0.0.RELEASE\spring-asm-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\user\.m2\repository\org\springframework\spring-expression\3.0.0.RELEASE\spring-expression-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-beans\3.0.0.RELEASE\spring-beans-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-aop\3.0.0.RELEASE\spring-aop-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\user\.m2\repository\org\springframework\spring-context\3.0.0.RELEASE\spring-context-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-context-support\3.0.0.RELEASE\spring-context-support-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-tx\3.0.0.RELEASE\spring-tx-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-oxm\3.0.0.RELEASE\spring-oxm-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\org\springframework\spring-test\3.0.0.RELEASE\spring-test-3.0.0.RELEASE.jar;C:\Users\user\.m2\repository\junit\junit\4.8.1\junit-4.8.1.jar;C:\Users\user\.m2\repository\org\aspectj\aspectjweaver\1.6.5\aspectjweaver-1.6.5.jar;C:\Users\user\.m2\repository\cglib\cglib\2.1_2\cglib-2.1_2.jar;C:\Users\user\.m2\repository\asm\asm\1.5.3\asm-1.5.3.jar;C:\Users\user\.m2\repository\net\sf\ehcache\ehcache-core\2.1.0\ehcache-core-2.1.0.jar;C:\Users\user\.m2\repository\org\slf4j\slf4j-api\1.5.11\slf4j-api-1.5.11.jar;C:\Users\user\.m2\repository\net\sf\ehcache\ehcache-terracotta\2.1.0\ehcache-terracotta-2.1.0.jar;C:\Users\user\.m2\repository\org\slf4j\slf4j-jdk14\1.5.11\slf4j-jdk14-1.5.11.jar;C:\Users\user\.m2\repository\log4j\log4j\1.2.12\log4j-1.2.12.jar;"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="java.home" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_13"/>
+    <property name="java.ext.dirs" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\resources.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\rt.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\sunrsasign.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\jsse.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\jce.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\lib\charsets.jar;E:\Development\MyEclipse 8.5\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\jre\classes"/>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="C:\Users\user\.m2\repository"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="0.426" classname="javaitzen.spring.interceptors.TestAspectCache" name="checkAspect">
+    <error message="Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:308)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:333)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:220)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:301)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:303)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:240)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:180)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [bob.blog.MyLittleTestObject] for bean with name &apos;testObject&apos; defined in class path resource [javaitzen/spring/interceptors/applicationContext.xml]; nested exception is java.lang.ClassNotFoundException: bob.blog.MyLittleTestObject
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:568)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1277)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:844)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:539)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:842)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:416)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:84)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:280)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:304)
+	... 28 more
+Caused by: java.lang.ClassNotFoundException: bob.blog.MyLittleTestObject
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:258)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:408)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1229)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1200)
+	... 38 more
+</error>
+  </testcase>
+  <testcase time="0.047" classname="javaitzen.spring.interceptors.TestAspectCache" name="cachedTimeTest">
+    <error message="Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:308)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:333)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:220)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:301)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:303)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:240)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:180)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [bob.blog.MyLittleTestObject] for bean with name &apos;testObject&apos; defined in class path resource [javaitzen/spring/interceptors/applicationContext.xml]; nested exception is java.lang.ClassNotFoundException: bob.blog.MyLittleTestObject
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:568)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1277)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:844)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:539)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:842)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:416)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:84)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:1)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:280)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:304)
+	... 28 more
+Caused by: java.lang.ClassNotFoundException: bob.blog.MyLittleTestObject
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:258)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:408)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1229)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1200)
+	... 38 more
+</error>
+  </testcase>
+</testsuite>
