@@ -19,8 +19,9 @@ public class UsersController {
 
     public static final String USER_VIEW_KEY = "userView";
     
+
     /**
-     * Show students page.
+     * Show bobs page.
      * 
      * @return the model and view
      */
@@ -31,13 +32,14 @@ public class UsersController {
         mav.addObject("users", user);
         return mav;
     }
+
     
     /**
-     * Gets the author by id.
+     * Gets the user by name.
      * 
      * @param user
      *            the user
-     * @return the author by id
+     * @return the user by name
      */
     @RequestMapping(value = "/users/{user}")
     public ModelAndView getUserByName(@PathVariable String user) {
