@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/oxm
+http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd">
+
+	<bean id="castor" class="javaitzen.spring.oxm.OXMarshall">
+		<property name="marshaller" ref="castorMarshaller" />
+		<property name="unmarshaller" ref="castorMarshaller" />
+	</bean>
+	<bean id="jax" class="javaitzen.spring.oxm.OXMarshall">
+		<property name="marshaller" ref="jaxb" />
+		<property name="unmarshaller" ref="jaxb" />
+	</bean>
+	<bean id="xtream" class="javaitzen.spring.oxm.OXMarshall">
+		<property name="marshaller" ref="xStreamMarshaller" />
+		<property name="unmarshaller" ref="xStreamMarshaller" />
+	</bean>
+
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+		<property name="mappingLocation" value="classpath:javaitzen/spring/oxm/mapping.xml" />
+	</bean>
+
+	<oxm:jaxb2-marshaller id="jaxb">
+		<oxm:class-to-be-bound name="javaitzen.spring.oxm.ClassToXMLMap" />
+	</oxm:jaxb2-marshaller>
+
+	<bean id="xStreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="autodetectAnnotations" value="true" />
+	</bean>
+
+
+</beans>
