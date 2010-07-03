@@ -13,19 +13,20 @@ public class MyLittleTestObject implements Serializable {
     /**
      * The business method.
      * 
-     * @param input the input
+     * @param input
+     *            the input
      * @return the string
      */
     public String theBusinessMethod(final String input) {
 
-	//some processing
-	int i = 0;
-	while (i < 1000000) {
-	    String wasteTime = i + i + "count + count";
-	    i++;
-	}
+        // some processing
+        int i = 0;
+        while (i < 1000000) {
+            String wasteTime = i + i + "count + count";
+            i++;
+        }
 
-	return "Returning from business method with value: " + input + " " + i;
+        return "Returning from business method with value: " + input + " " + i;
 
     }
 
@@ -35,19 +36,22 @@ public class MyLittleTestObject implements Serializable {
      * @return the meh
      */
     public String getMeh() {
-	return meh;
+        return meh;
     }
 
     /**
      * Generated Setter.
      * 
-     * @param meh the meh to set
+     * @param meh
+     *            the meh to set
      */
     public void setMeh(final String meh) {
-	this.meh = meh;
+        this.meh = meh;
     }
 
-    /** (non-Javadoc)
+    /**
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -58,7 +62,9 @@ public class MyLittleTestObject implements Serializable {
         return result;
     }
 
-    /** (non-Javadoc)
+    /**
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
