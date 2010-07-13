@@ -1,22 +1,42 @@
 package javaitzen.spring.rest;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The Class User.
  */
+
 @SuppressWarnings("restriction")
 @XmlRootElement(name = "user" )
-public class User {
+@Entity
+@Table(name = "USER")
+public class User implements Serializable {
 
-
+    private static final long serialVersionUID = -2474375582120847864L;
+    @Id  
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="USER_ID", nullable = false)
+    private Long userId;
+    @Column(name="FIRST_NAME", nullable = false, length=45)
     private String firstName;
+    @Column(name="LAST_NAME", nullable = false, length=45)
     private String lastName;
+    @Column(name="USERNAME", nullable = false, length=45)
     private String userName;
+    @Transient
     private List<String> preferences;
+    
 
     /**
      * Instantiates a new user.
@@ -116,8 +136,79 @@ public class User {
      * @param preferences
      *            the new preferences
      */
-    public final void setPreferences(List<String> preferences) {
+    public final void setPreferences(final List<String> preferences) {
         this.preferences = preferences;
+    }
+
+    /**
+     * Gets the id.
+     * 
+     * @return the id
+     */
+    public final Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the id.
+     * 
+     * @param id
+     *            the new id
+     */
+    public final void setUserId(final Long id) {
+        this.userId = id;
+    }
+
+    /** (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + userId.hashCode();
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((preferences == null) ? 0 : preferences.hashCode());
+        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+        return result;
+    }
+
+    /** (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (userId != other.userId)
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        if (preferences == null) {
+            if (other.preferences != null)
+                return false;
+        } else if (!preferences.equals(other.preferences))
+            return false;
+        if (userName == null) {
+            if (other.userName != null)
+                return false;
+        } else if (!userName.equals(other.userName))
+            return false;
+        return true;
     }
 
 }

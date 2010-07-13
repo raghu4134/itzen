@@ -1,11 +1,13 @@
 package javaitzen.spring.rest.controller;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import javaitzen.spring.rest.User;
+import javaitzen.spring.rest.Users;
+import javaitzen.spring.rest.data.UserDAO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * The Class UsersController.
  */
 @Controller
+@RequestMapping("/users")  
 public class UsersController {
-
-    private static Map<String, User> users = new TreeMap<String, User>();
+    
+    @Autowired
+    private UserDAO userDAO;
     
     /**
      * Gets the user.
@@ -27,12 +31,27 @@ public class UsersController {
      *            the user
      * @return the user
      */
-    @RequestMapping(value="/users/{firstName}",method=RequestMethod.GET) 
-    @ResponseBody public User getUser(@PathVariable("firstName")String user) {
+    @RequestMapping(method=RequestMethod.GET)
+    @Transactional(readOnly = true)
+    @ResponseBody public Users getAllUsers() {
+        System.out.println("retrieve all");
+        Users users = new Users(userDAO.findAll());
+        return users;
+    } 
+    
+    /**
+     * Gets the user.
+     * 
+     * @param user
+     *            the user
+     * @return the user
+     */
+    @RequestMapping(value="/{id}",method=RequestMethod.GET)
+    @Transactional(readOnly = true)
+    @ResponseBody public User getUser(@PathVariable("id")Long id) {
         System.out.println("retrieve");
-        User theUser = someExampleData().get(user);
-        return theUser;
-        
+        User theUser = userDAO.findById(id);
+        return theUser;        
     } 
     
     /**
@@ -42,10 +61,11 @@ public class UsersController {
      *            the user
      * @return the user
      */
-    @RequestMapping(value="/users/",method=RequestMethod.POST) 
+    @RequestMapping(method=RequestMethod.POST) 
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
     @ResponseBody public User createUser(@RequestBody User user) {
         System.out.println("create");
-        users.put(user.getFirstName(), user);
+        userDAO.persist(user);
         return user;
     } 
     
@@ -58,10 +78,11 @@ public class UsersController {
      *            the user
      * @return the user
      */
-    @RequestMapping(value="/users/{firstName}",method=RequestMethod.PUT) 
-    @ResponseBody public User updateUser(@PathVariable("firstName")String name, @RequestBody User user) {
+    @RequestMapping(method=RequestMethod.PUT) 
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+    @ResponseBody public User updateUser(@RequestBody User user) {
         System.out.println("update");
-        users.put(user.getFirstName(), user);
+        user = userDAO.merge(user);
         return user;
     } 
     
@@ -72,23 +93,32 @@ public class UsersController {
      * @param name
      *            the name
      */
-    @RequestMapping(value="/users/{firstName}",method=RequestMethod.DELETE) 
-    @ResponseBody public void deleteUser(@PathVariable("firstName")String name) { 
+    @RequestMapping(value="/{Id}",method=RequestMethod.DELETE) 
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+    @ResponseBody public void deleteUser(@PathVariable("Id")Long id) { 
         System.out.println("delete");
-        users.remove(name);
+        userDAO.remove(userDAO.findById(id));
         
     } 
     
     
     /**
-     * Some example data.
+     * Gets the user dao.
      * 
-     * @return the map
+     * @return the user dao
      */
-    private Map<String, User> someExampleData() {
-        users.put("Bob", new User("Bob", "Smith", "bobs", "clean", "simple", "code"));
-        users.put("John", new User("John", "Doe", "johnd", "large", "complicated", "code"));
-        users.put("Mary", new User("Mary", "Smith", "marys", "nice", "pretty", "code"));
-        return users;
+    public final UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    
+    /**
+     * Sets the user dao.
+     * 
+     * @param userDAO
+     *            the new user dao
+     */
+    public final void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import javaitzen.spring.rest.client.UserServiceClient;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,39 +12,76 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class UserRestTest.
+ */
 @ContextConfiguration(locations={"/javaitzen/spring/rest/applicationContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRestTest {
 
     @Autowired
-    UserServiceClient client;
+    private UserServiceClient client;
     
+    private User user;   
+    
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
+       user = client.createNewUser("Ray", "Pingbo", "NI");
     }
     
-    @Test
-    public void testGetRest() throws Exception{
-        User user = client.retrieveUserDetails("John");
-        assertEquals(user.getFirstName(), "John");
-        assertEquals(user.getLastName(), "Doe");
-
+    /**
+     * After.
+     */
+    @After
+    public void after(){
+        client.deleteUserDetails(user.getUserId());
     }
     
+    /**
+     * Test post rest.
+     * 
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPostRest() throws Exception{
-        User user = client.createNewUser("Ray", "Pingbo", "NI");
         assertEquals(user.getFirstName(), "Ray");
         assertEquals(user.getLastName(), "Pingbo");
     }
+    
+    /**
+     * Test get rest.
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    public void testGetRest() throws Exception{
+        user = client.retrieveUserDetails(user.getUserId());
+        assertEquals(user.getFirstName(), "Ray");
+        assertEquals(user.getLastName(), "Pingbo");
+
+    }
+    
+    /**
+     * Test put rest.
+     * 
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPutRest() throws Exception{
-        client.updateUserDetails("Ray", "Pingbo", "NI");
+        user.setFirstName("Bob");
+        user.setLastName("Bean");
+        client.updateUserDetails(user);
+        user = client.retrieveUserDetails(user.getUserId());
+        assertEquals(user.getFirstName(), "Bob");
+        assertEquals(user.getLastName(), "Bean");
+
     }
     
-    @Test
-    public void testDeleteRest(){
-        assertTrue(client.deleteUserDetails("Mary"));
-    }
-    
+   
 }

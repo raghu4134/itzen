@@ -15,20 +15,20 @@ public class UserServiceClient {
 
     @Autowired
     protected RestTemplate restTemplate;
-    private final static String serviceUrl = "http://127.0.0.1:7001/Spring3RESTFul-1/app/users/";
-
+    private final static String serviceUrl = "http://localhost:8080/Spring3RESTFul-1/app/users/";
+ 
     /**
      * Retrieve user details.
      * 
-     * @param firstName
-     *            the first name
+     * @param id
+     *            the id
      * @return the user
      */
-    public User retrieveUserDetails(final String firstName) {
+    public User retrieveUserDetails(final Long id) {
         System.out.println("Client: get");
-        return restTemplate.getForObject(serviceUrl + "{firstName}", User.class, firstName);
+        return restTemplate.getForObject(serviceUrl + "{id}", User.class, id);
     }
-    
+        
 
     /**
      * Creates the new user.
@@ -41,6 +41,7 @@ public class UserServiceClient {
      *            the user name
      * @return the user
      */
+    
     public User createNewUser(final String firstName, final String lastName, final String userName) {
         System.out.println("Client: post");
         User newUser = new User(firstName, lastName, userName);
@@ -48,33 +49,37 @@ public class UserServiceClient {
         return newUser;
     }
     
+    
     /**
      * Update user details.
      * 
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
-     * @param userName
-     *            the user name
+     * @param user
+     *            the user
+     * @return the user
      */
-    public void updateUserDetails(final String firstName, final String lastName, final String userName) {
+    public User updateUserDetails(final User user) {
         System.out.println("Client: put");
-        User newUser = new User(firstName, lastName, userName);
-        restTemplate.put(serviceUrl + "{firstName}", newUser, firstName);
+        try{
+            restTemplate.put(serviceUrl  + "{id}", user, user.getUserId());    
+            return user;
+        }catch (final RestClientException rce){
+           throw rce; 
+        } 
+        
     }
+
 
     /**
      * Delete user details.
      * 
-     * @param firstName
-     *            the first name
+     * @param Id
+     *            the id
      * @return true, if successful
      */
-    public boolean deleteUserDetails(final String firstName) {        
+    public boolean deleteUserDetails(final Long Id) {        
         System.out.println("Client: delete");
         try{
-            restTemplate.delete(serviceUrl + "{firstName}", firstName);
+            restTemplate.delete(serviceUrl + "{Id}", Id);
         }catch (RestClientException e) {
             e.printStackTrace();
             return false;
