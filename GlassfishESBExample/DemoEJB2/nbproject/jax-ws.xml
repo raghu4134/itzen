@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="HistoryCollector">
+      <implementation-class>javaitzen.esb.history.HistoryCollector</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
