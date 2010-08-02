@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="demoBpel"
+    targetNamespace="http://enterprise.netbeans.org/bpel/DemoBpel/demoBpel"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/DemoBpel/demoBpel"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxtx="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Transaction" sxtx:atomic="yes" sxtx:atomicTxType="Required" xmlns:ns0="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension" ns0:persistenceOptOut="yes" xmlns:sxed2="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2" xmlns:ns1="http://data.esb.javaitzen/" xmlns:ns2="http://history.esb.javaitzen/">
+    <import namespace="http://enterprise.netbeans.org/bpel/DemoESBServiceWrapper" location="DemoESBServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://esb.javaitzen/" location="DemoESBService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/DataCollectorServiceWrapper" location="DataCollectorServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://data.esb.javaitzen/" location="DemoEJB1/wsdl/DataCollectorService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/HistoryCollectorServiceWrapper" location="HistoryCollectorServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://history.esb.javaitzen/" location="DemoEJB2/wsdl/HistoryCollectorService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="DemoEJB1" xmlns:tns="http://enterprise.netbeans.org/bpel/DataCollectorServiceWrapper" partnerLinkType="tns:DataCollectorLinkType" partnerRole="DataCollectorRole"/>
+        <partnerLink name="DemoEJB2" xmlns:tns="http://enterprise.netbeans.org/bpel/HistoryCollectorServiceWrapper" partnerLinkType="tns:HistoryCollectorLinkType" partnerRole="HistoryCollectorRole"/>
+        <partnerLink name="MainPL" xmlns:tns="http://enterprise.netbeans.org/bpel/DemoESBServiceWrapper" partnerLinkType="tns:DemoESBLinkType" myRole="DemoESBRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="DemoEJB21-GatherHistoryDataOut" xmlns:tns="http://history.esb.javaitzen/" messageType="tns:gatherHistoryDataResponse"/>
+        <variable name="DemoEJB2-GatherHistoryDataIn" xmlns:tns="http://history.esb.javaitzen/" messageType="tns:gatherHistoryData"/>
+        <variable name="DemoEJB1-GatherHistoryDataOut" xmlns:tns="http://data.esb.javaitzen/" messageType="tns:gatherHistoryDataResponse"/>
+        <variable name="DemoEJB2-GatherHistoryDataOut" xmlns:tns="http://data.esb.javaitzen/" messageType="tns:gatherHistoryDataResponse"/>
+        <variable name="DemoEJB1-GatherHistoryDataIn" xmlns:tns="http://data.esb.javaitzen/" messageType="tns:gatherHistoryData"/>
+        <variable name="MainESBEntryOut" xmlns:tns="http://esb.javaitzen/" messageType="tns:mainESBEntryResponse"/>
+        <variable name="MainESBEntryIn" xmlns:tns="http://esb.javaitzen/" messageType="tns:mainESBEntry"/>
+    </variables>
+    <sequence>
+        <receive name="Receive" createInstance="yes" partnerLink="MainPL" operation="mainESBEntry" xmlns:tns="http://esb.javaitzen/" portType="tns:DemoESB" variable="MainESBEntryIn"/>
+        <flow name="Flow1">
+            <sequence name="FlowSequence">
+                <assign name="Assign1">
+                    <copy>
+                        <from>$MainESBEntryIn.parameters/arg0/body</from>
+                        <to>$DemoEJB1-GatherHistoryDataIn.parameters/message/body</to>
+                    </copy>
+                    <copy>
+                        <from>$MainESBEntryIn.parameters/arg0/header</from>
+                        <to>$DemoEJB1-GatherHistoryDataIn.parameters/message/header</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeDemo1" partnerLink="DemoEJB1" operation="gatherHistoryData" portType="ns1:DataCollector" inputVariable="DemoEJB1-GatherHistoryDataIn" outputVariable="DemoEJB1-GatherHistoryDataOut"/>
+            </sequence>
+            <sequence name="FlowSequence1">
+                <assign name="Assign2">
+                    <copy>
+                        <from>$MainESBEntryIn.parameters/arg0/body</from>
+                        <to>$DemoEJB2-GatherHistoryDataIn.parameters/message/body</to>
+                    </copy>
+                    <copy>
+                        <from>$MainESBEntryIn.parameters/arg0/header</from>
+                        <to>$DemoEJB2-GatherHistoryDataIn.parameters/message/header</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeDemo2" partnerLink="DemoEJB2" operation="gatherHistoryData" portType="ns2:HistoryCollector" inputVariable="DemoEJB2-GatherHistoryDataIn" outputVariable="DemoEJB21-GatherHistoryDataOut"/>
+            </sequence>
+        </flow>
+        <assign name="Assign3">
+            <copy>
+                <from>$DemoEJB21-GatherHistoryDataOut.parameters/return/header/history</from>
+                <to>$MainESBEntryOut.parameters/return/header/history</to>
+            </copy>
+            <copy>
+                <from>$DemoEJB1-GatherHistoryDataOut.parameters/return/body/someRandomAppData</from>
+                <to>$MainESBEntryOut.parameters/return/body/someRandomAppData</to>
+            </copy>
+        </assign>
+        <reply name="Reply" partnerLink="MainPL" operation="mainESBEntry" xmlns:tns="http://esb.javaitzen/" portType="tns:DemoESB" variable="MainESBEntryOut"/>
+    </sequence>
+</process>
+
+
