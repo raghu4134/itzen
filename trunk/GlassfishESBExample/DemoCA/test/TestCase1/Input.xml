@@ -1,0 +1,21 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:esb="http://esb.javaitzen/">
+  <soapenv:Body>
+    <esb:mainESBEntry>
+      <arg0>
+        <body>
+          <someRandomAppData>
+            <entry>
+              <key>A</key>
+              <value>Value</value>
+            </entry>
+          </someRandomAppData>
+        </body>
+        <header>
+          <currentLocation>Earth</currentLocation>
+          <currentUser>Bob</currentUser>
+          <history>Moon</history>
+        </header>
+      </arg0>
+    </esb:mainESBEntry>
+  </soapenv:Body>
+</soapenv:Envelope>

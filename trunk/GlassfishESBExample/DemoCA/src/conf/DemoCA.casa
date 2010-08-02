@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="DemoCA" xmlns:ns2="http://esb.javaitzen/" xmlns:ns3="http://data.esb.javaitzen/" xmlns:ns4="http://history.esb.javaitzen/" xmlns:ns5="http://enterprise.netbeans.org/bpel/DemoBpel/demoBpel" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="casaPort1" interface-name="ns2:DemoESB" name="endpoint1" service-name="ns1:DemoCAService1"/>
+        <endpoint endpoint-name="casaPort2" interface-name="ns2:DemoESB" name="endpoint2" service-name="ns1:DemoCAService2"/>
+        <endpoint endpoint-name="javaee_DataCollectorPort" interface-name="ns3:DataCollector" name="endpoint3" service-name="ns3:DataCollectorService"/>
+        <endpoint endpoint-name="javaee_HistoryCollectorPort" interface-name="ns4:HistoryCollector" name="endpoint4" service-name="ns4:HistoryCollectorService"/>
+        <endpoint display-name="MainPL" endpoint-name="DemoESBRole_myRole" file-path="demoBpel.bpel" interface-name="ns2:DemoESB" name="endpoint5" process-name="demoBpel" service-name="ns5:MainPL"/>
+        <endpoint display-name="DemoEJB1" endpoint-name="DataCollectorRole_partnerRole" file-path="demoBpel.bpel" interface-name="ns3:DataCollector" name="endpoint6" process-name="demoBpel" service-name="ns5:DemoEJB1"/>
+        <endpoint display-name="DemoEJB2" endpoint-name="HistoryCollectorRole_partnerRole" file-path="demoBpel.bpel" interface-name="ns4:HistoryCollector" name="endpoint7" process-name="demoBpel" service-name="ns5:DemoEJB2"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="DemoEJB1.jar" component-name="sun-javaee-engine" defined="true" description="Represents this Service Unit" internal="true" name="DemoCA-DemoEJB1" unit-name="DemoEJB1" unknown="false" x="288" y="113">
+            <provides endpoint="endpoint3"/>
+        </service-engine-service-unit>
+        <service-engine-service-unit artifacts-zip="DemoEJB2.jar" component-name="sun-javaee-engine" defined="true" description="Represents this Service Unit" internal="true" name="DemoCA-DemoEJB2" unit-name="DemoEJB2" unknown="false" x="276" y="194">
+            <provides endpoint="endpoint4"/>
+        </service-engine-service-unit>
+        <service-engine-service-unit artifacts-zip="DemoBpel.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="DemoCA-DemoBpel" unit-name="DemoBpel" unknown="false" x="68" y="99">
+            <provides endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+            <consumes endpoint="endpoint7"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="DemoCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port bindingType="soap" x="67" y="39">
+                    <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService1']/port[@name='casaPort1'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-rest-binding.jar" component-name="sun-rest-binding" description="Represents this Service Unit" name="DemoCA-sun-rest-binding" unit-name="sun-rest-binding">
+            <ports>
+                <port bindingType="rest" x="67" y="118">
+                    <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService2']/port[@name='casaPort2'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint7" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint5" state="new">
+            <redelivery xmlns="http://www.sun.com/jbi/qos/redelivery">
+                <on-failure>
+                    <error/>
+                </on-failure>
+            </redelivery>
+        </connection>
+        <connection consumer="endpoint6" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint2" provider="endpoint5" state="new"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/portType[@name='dummyCasaPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoBpel/DemoESBService.wsdl#xpointer(/definitions/portType[@name='DemoESB'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoCA.wsdl#xpointer(/definitions/portType[@name='dummyCasaPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB1/META-INF/wsdl/DataCollectorService.wsdl#xpointer(/definitions/portType[@name='DataCollector'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB2/META-INF/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/portType[@name='HistoryCollector'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB1/src/conf/wsdl/DataCollectorService.wsdl#xpointer(/definitions/portType[@name='DataCollector'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB2/src/conf/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/portType[@name='HistoryCollector'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/binding[@name='casaBinding1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/binding[@name='casaBinding2'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoBpel/DemoESBService.wsdl#xpointer(/definitions/binding[@name='DemoESBPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoCA.wsdl#xpointer(/definitions/binding[@name='casaBinding1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoCA.wsdl#xpointer(/definitions/binding[@name='casaBinding2'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB1/META-INF/wsdl/DataCollectorService.wsdl#xpointer(/definitions/binding[@name='DataCollectorPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB2/META-INF/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/binding[@name='HistoryCollectorPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB1/src/conf/wsdl/DataCollectorService.wsdl#xpointer(/definitions/binding[@name='DataCollectorPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB2/src/conf/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/binding[@name='HistoryCollectorPortBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiasa/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService2'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoBpel/DemoESBService.wsdl#xpointer(/definitions/service[@name='DemoESBService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoCA.wsdl#xpointer(/definitions/service[@name='DemoCAService2'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB1/META-INF/wsdl/DataCollectorService.wsdl#xpointer(/definitions/service[@name='DataCollectorService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/DemoEJB2/META-INF/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/service[@name='HistoryCollectorService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB1/src/conf/wsdl/DataCollectorService.wsdl#xpointer(/definitions/service[@name='DataCollectorService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/DemoBpel/src/_references/_projects/DemoEJB2/src/conf/wsdl/HistoryCollectorService.wsdl#xpointer(/definitions/service[@name='HistoryCollectorService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="498"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>
+
