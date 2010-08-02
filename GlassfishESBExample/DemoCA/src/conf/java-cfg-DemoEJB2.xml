@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="http://history.esb.javaitzen/" name="DemoEJB2">
+    <services>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_HistoryCollectorPort" interface-name="ns0:HistoryCollector" service-name="ns0:HistoryCollectorService"/>
+    </services>
+</javaee-project>

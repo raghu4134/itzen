@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <mainESBEntryResponse xmlns="http://esb.javaitzen/" xmlns:msgns="http://esb.javaitzen/">
+      <return xmlns="">
+        <body xmlns:esb="http://esb.javaitzen/">
+          <someRandomAppData>
+            <entry>
+              <key>A</key>
+              <value>Value</value>
+            </entry>
+          </someRandomAppData>
+        </body>
+        <header xmlns:esb="http://esb.javaitzen/">
+          <currentLocation>Earth</currentLocation>
+          <currentUser>Bob</currentUser>
+          <history>Moon</history>
+        </header>
+      </return>
+    </mainESBEntryResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
