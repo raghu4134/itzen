@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="DemoEJB1/wsdl/DataCollectorService.wsdl" uri="nb-uri:DemoEJB1#src/conf/wsdl/DataCollectorService.wsdl"/>
+    <system systemId="DemoEJB2/wsdl/HistoryCollectorService.wsdl" uri="nb-uri:DemoEJB2#src/conf/wsdl/HistoryCollectorService.wsdl"/>
+</catalog>
+
+
+

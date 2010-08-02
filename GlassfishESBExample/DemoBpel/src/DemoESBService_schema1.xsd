@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://esb.javaitzen/" xmlns:tns="http://esb.javaitzen/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="mainESBEntry" type="tns:mainESBEntry"/>
+
+  <xs:element name="mainESBEntryResponse" type="tns:mainESBEntryResponse"/>
+
+  <xs:complexType name="mainESBEntry">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:esbMessage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="esbMessage">
+    <xs:sequence>
+      <xs:element name="body" type="tns:body" minOccurs="0"/>
+      <xs:element name="header" type="tns:header" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="body">
+    <xs:sequence>
+      <xs:element name="someRandomAppData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="header">
+    <xs:sequence>
+      <xs:element name="currentLocation" type="xs:string" minOccurs="0"/>
+      <xs:element name="currentUser" type="xs:string" minOccurs="0"/>
+      <xs:element name="history" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="mainESBEntryResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:esbMessage" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
