@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/oxm/spring-jee-3.0.xsd">
+
+
+	<context:component-scan base-package="javaitzen.spring.jms" />
+	
+	<bean name="main" class="javaitzen.spring.jms.Main" />
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsQueueConnectionFactory" />
+		<property name="destinationResolver" ref="jmsDestinationResolver" />
+	</bean>
+
+	<bean id="jmsQueueConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate" />
+		</property>
+		<property name="jndiName">
+			<value>jms/FizzBuzzConnectionFactory</value>
+		</property>
+	</bean>
+
+	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+				<prop key="java.naming.provider.url">t3://localhost:7001</prop>
+				<prop key="java.naming.security.principal">weblogic</prop>
+				<prop key="java.naming.security.credentials">weblogic</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="jmsDestinationResolver"
+		class="org.springframework.jms.support.destination.JndiDestinationResolver">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate" />
+		</property>
+		<property name="cache" value="true" />
+	</bean>
+
+	<bean id="numberSender" class="javaitzen.spring.jms.MessageSender">
+		<property name="queue" value="jms/NumberQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="buzzSender" class="javaitzen.spring.jms.MessageSender">
+		<property name="queue" value="jms/BuzzQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="fizzSender" class="javaitzen.spring.jms.MessageSender">
+		<property name="queue" value="jms/FizzQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="fizzBuzzSender" class="javaitzen.spring.jms.MessageSender">
+		<property name="queue" value="jms/FizzBuzzQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="resultSender" class="javaitzen.spring.jms.MessageSender">
+		<property name="queue" value="jms/ResultQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+
+	<bean id="numberReader" class="javaitzen.spring.jms.MessageConsumer">
+		<property name="queue" value="jms/NumberQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean name="jmsListener" class="javaitzen.spring.jms.JmsMessageListener" />
+
+	<bean id="queue" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate" />
+		</property>
+		<property name="jndiName" value="jms/ResultQueue" />
+	</bean>
+
+	<bean id="messageDrivenListener"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="concurrentConsumers" value="1" />
+		<property name="connectionFactory" ref="jmsQueueConnectionFactory" />
+		<property name="destination" ref="queue" />
+		<property name="messageListener" ref="jmsListener" />
+	</bean>
+
+</beans>
