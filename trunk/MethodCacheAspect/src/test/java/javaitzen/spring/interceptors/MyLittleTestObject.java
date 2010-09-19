@@ -30,6 +30,28 @@ public class MyLittleTestObject implements Serializable {
 
     }
 
+    
+    /**
+     * The business method.
+     * 
+     * @param input
+     *            the input
+     * @return the string
+     */
+    public String theOtherBusinessMethod(final String input) {
+
+        // some processing
+        int i = 0;
+        while (i < 1000000) {
+            String wasteTime = i + i + "count + count";
+            i++;
+        }
+
+        return "Returning from other business method with value: " + input + " " + i;
+
+    }
+
+    
     /**
      * Generated Getter.
      * 

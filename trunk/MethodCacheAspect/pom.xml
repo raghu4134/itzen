@@ -22,7 +22,7 @@
 		</plugins>
 	</build>
 	<properties>
-		<org.springframework.version>3.0.2.RELEASE</org.springframework.version>
+		<org.springframework.version>3.0.3.RELEASE</org.springframework.version>
 	</properties>
 	<dependencies>
 
@@ -153,6 +153,16 @@
 			<version>2.1.0</version>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-client</artifactId>
+			<version>1.9</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>

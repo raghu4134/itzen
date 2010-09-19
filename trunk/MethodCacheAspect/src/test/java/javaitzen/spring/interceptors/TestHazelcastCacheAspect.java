@@ -16,26 +16,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * The Class TestAspectCache.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "applicationContext.xml"})
-public class TestAspectCache {
+@ContextConfiguration(locations = { "applicationContext-hazelcast.xml" })
+public class TestHazelcastCacheAspect {
     private Logger logger = Logger.getAnonymousLogger();
+    
     @Autowired
-    private MyLittleTestObject testObject;
+    private MyLittleTestObject hazelTestObject;
+
     
     /**
      * Check aspect.
      */
     @Test
-    public void checkAspect() {
+    public void checkHazelcastAspect() {
 
         long starttime = new Date().getTime();
-        String returnstr = testObject.theBusinessMethod("test");
-        logger.log(Level.INFO, "Ran the method: " + returnstr);
+        String returnstr = hazelTestObject.theOtherBusinessMethod("test");
+        logger.log(Level.INFO, "Ran the Hazelcast method: " + returnstr);
         long donetime = new Date().getTime();
         long totalTime1 = donetime - starttime;
-        logger.log(Level.INFO, "theBusinessMethod()> 1 done - time:" + totalTime1);
+        logger.log(Level.INFO, "theOtherBusinessMethod()> 1 done - time:" + totalTime1);
 
-        assertEquals(returnstr, "Returning from business method with value: test 1000000");
+        assertEquals(returnstr, "Returning from other business method with value: test 1000000");
 
     }
 
@@ -44,17 +46,17 @@ public class TestAspectCache {
      * didn't work.
      */
     @Test(timeout = 5)
-    public void cachedTimeTest() {
+    public void cachedHazelcastTimeTest() {
         long starttime = new Date().getTime();
-        String returnstr = testObject.theBusinessMethod("test");
-        logger.log(Level.INFO, "Ran the method: " + returnstr);
+        String returnstr = hazelTestObject.theOtherBusinessMethod("test");
+        logger.log(Level.INFO, "Ran the Hazelcast method: " + returnstr);
         long donetime = new Date().getTime();
         long totalTime1 = donetime - starttime;
-        logger.log(Level.INFO, "theBusinessMethod()> 2 done - time:" + totalTime1);
+        logger.log(Level.INFO, "theOtherBusinessMethod()> 2 done - time:" + totalTime1);
         // check that we got the same result with actually entering the
         // function.
-        assertEquals(returnstr, "Returning from business method with value: test 1000000");
+        assertEquals(returnstr, "Returning from other business method with value: test 1000000");
 
     }
-    
+
 }
