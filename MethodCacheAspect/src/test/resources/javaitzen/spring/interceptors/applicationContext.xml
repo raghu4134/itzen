@@ -8,14 +8,14 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<bean id="testObject" class="javaitzen.spring.interceptors.MyLittleTestObject" />
 
-	<bean id="methodCacheAspect" class="javaitzen.spring.interceptors.MethodCacheAspect">
+	<bean id="ehcacheCacheAspect" class="javaitzen.spring.interceptors.EhcacheMethodAspect">
 		<property name="cache">
 			<ref local="methodCache" ></ref>
 		</property>
 	</bean>
 
 	<aop:config proxy-target-class="true">
-		<aop:aspect ref="methodCacheAspect">
+		<aop:aspect ref="ehcacheCacheAspect">
 			<aop:pointcut id="around" expression="execution(* theBusinessMethod(..))" ></aop:pointcut>
 			<aop:around pointcut-ref="around" method="aroundAdvice" ></aop:around>
 		</aop:aspect>

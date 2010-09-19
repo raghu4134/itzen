@@ -6,27 +6,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.Element;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
+import com.hazelcast.core.MapEntry;
+
 /**
- * The Class MethodCacheAspect.
+ * The Class HazelcastMethodAspect.
  * 
  * @author Brian Du Preez
  */
 @Aspect
-public class MethodCacheAspect {
+public class HazelcastMethodAspect {
 
-    private Logger logger = Logger.getLogger(MethodCacheAspect.class.getName());
+    private Logger logger = Logger.getLogger(HazelcastMethodAspect.class.getName());
 
-    /**
-     * The cache.
-     */
-    private Cache cache;
-
+    private HazelcastInstance hazelcastInstance;
+    private String cacheName;
     private CacheKeyStrategy defaultKeyStrat;
 
     private List<CacheKeyStrategy> keyStrategies = new LinkedList<CacheKeyStrategy>();
@@ -68,16 +66,16 @@ public class MethodCacheAspect {
         defaultKeyStrat = new DefaultCacheKeyStrategy(pjp);
 
         if (!keyStrategies.isEmpty()) {
-            logger.log(Level.INFO, "Have a Key Strategy to use...");
+            logger.log(Level.FINE, "Have a Key Strategy to use...");
             for (CacheKeyStrategy strat : keyStrategies) {
                 if ((arguments != null) && (arguments.length != 0)) {
-                    logger.log(Level.INFO, "Have Arguments...");
+                    logger.log(Level.FINE, "Have Arguments...");
                     for (Object arg : arguments) {
-                        logger.log(Level.INFO, "Class for Strategy: " + strat.classForStrategy());
-                        logger.log(Level.INFO, "Arguments: " + arg);
+                        logger.log(Level.FINE, "Class for Strategy: " + strat.classForStrategy());
+                        logger.log(Level.FINE, "Arguments: " + arg);
                         if (Class.forName(strat.classForStrategy()).isInstance(arg)) {
                             strat.setObject(arg);
-                            logger.log(Level.INFO, "Using Strategy...");
+                            logger.log(Level.FINE, "Using Strategy...");
                             cacheKey.append(strat.generateKey());
                         }
                     }
@@ -86,45 +84,74 @@ public class MethodCacheAspect {
         }
 
         if (cacheKey.length() == 0) {
-            logger.log(Level.INFO, "Using Default...");
+            logger.log(Level.FINE, "Using Default...");
             cacheKey.append(defaultKeyStrat.generateKey());
         }
-        Element element = cache.get(cacheKey.toString());
-
+        MapEntry<String, Serializable> entry = getCache().getMapEntry(cacheKey.toString());
+        
         // not in cache
-        if (element == null) {
+        if (entry == null) {
             result = pjp.proceed();
             if (result != null && !(result instanceof Serializable)) {
                 throw new RuntimeException("[" + result.getClass().getName() + "] is not Serializable");
             }
             logger.log(Level.INFO, ">>> caching result - " + cacheKey);
-            element = new Element(cacheKey.toString(), (Serializable) result);
-            cache.put(element);
+            getCache().put(cacheKey.toString(), (Serializable) result);
         } else {
             logger.log(Level.INFO, ">>> returning result from cache");
-            return element.getValue();
+            return entry.getValue();
         }
 
         return result;
     }
 
     /**
-     * Generated Getter.
+     * Gets the actual cache.
      * 
      * @return the cache
      */
-    public Cache getCache() {
-        return cache;
+    private IMap<String, Serializable> getCache() {
+        return hazelcastInstance.getMap(getCacheName());
+    }
+    
+    
+    /**
+     * Gets the hazelcast instance.
+     * 
+     * @return the hazelcast instance
+     */
+    private final HazelcastInstance getHazelcastInstance() {
+        return hazelcastInstance;
     }
 
     /**
-     * Generated Setter.
+     * Sets the hazelcast instance.
      * 
-     * @param cache
-     *            the cache to set
+     * @param hazelcastInstance
+     *            the new hazelcast instance
      */
-    public void setCache(final Cache cache) {
-        this.cache = cache;
+    public final void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
+        this.hazelcastInstance = hazelcastInstance;
     }
+
+    /**
+     * Gets the cache name.
+     * 
+     * @return the cache name
+     */
+    private final String getCacheName() {
+        return cacheName;
+    }
+
+    /**
+     * Sets the cache name.
+     * 
+     * @param cacheName
+     *            the new cache name
+     */
+    public final void setCacheName(String cacheName) {
+        this.cacheName = cacheName;
+    }
+
 
 }
