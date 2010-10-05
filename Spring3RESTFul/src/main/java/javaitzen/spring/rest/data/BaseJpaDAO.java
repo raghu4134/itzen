@@ -11,8 +11,6 @@ import javax.persistence.Query;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 
-
-
 /**
  * The Class BaseJpaDAO.
  * 
