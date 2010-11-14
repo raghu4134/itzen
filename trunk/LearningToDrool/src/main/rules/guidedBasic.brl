@@ -1,0 +1,35 @@
+<rule>
+  <name>guidedBasic</name>
+  <modelVersion>1.0</modelVersion>
+  <attributes>
+    <attribute>
+      <attributeName>salience</attributeName>
+      <value>10</value>
+    </attribute>
+  </attributes>
+  <metadataList/>
+  <lhs>
+    <fact>
+      <constraintList>
+        <constraints>
+          <fieldConstraint>
+            <value>Guided Rule</value>
+            <constraintValueType>1</constraintValueType>
+            <fieldName>stringValue</fieldName>
+            <operator>==</operator>
+            <fieldType>String</fieldType>
+            <expression>
+              <parts/>
+            </expression>
+          </fieldConstraint>
+        </constraints>
+      </constraintList>
+      <factType>RoolVO</factType>
+    </fact>
+  </lhs>
+  <rhs>
+    <freeForm>
+      <text>System.out.println(&quot;A guided rule brl... with some drl in it&quot;);</text>
+    </freeForm>
+  </rhs>
+</rule>

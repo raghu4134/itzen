@@ -1,0 +1,67 @@
+#created on: 06 Nov 2010
+package javaitzen.drools.rules
+
+import javaitzen.drools.RoolVO
+import java.util.logging.Level
+
+global java.util.logging.Logger logger;
+global javaitzen.drools.RoolResults results;
+
+rule "Basic Rule"
+	
+	when
+		$vo : RoolVO( stringValue == "Learning to drool", $booleanVal : booleanValue )
+		eval( $booleanVal )
+	then 
+		System.out.println( "First Rule." ); 
+		$vo.setStringValue("Done.");
+
+end
+
+rule "More"
+	
+	when
+		$vo : RoolVO( stringValue == "Learning to drool" 
+		&& doubleValue < 30.0 
+		&& doubleValue > 10.0 
+		|| (stringValue == "Learning to drool" 
+		&& booleanValue == false
+		&& listValue != null))
+	then  
+		$vo.setStringValue("Done.");
+		
+end
+
+
+rule "Use a Global "
+	
+	when
+		$vo : RoolVO( stringValue == "Global")
+	then  
+		$vo.setStringValue("Done.");
+		logger.log(Level.INFO,"Logging with a global");
+
+end
+
+
+rule "Use a Regular Expression"
+	
+	
+	when
+		$vo : RoolVO( stringValue matches  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")
+	then  
+		$vo.setStringValue("Done.");
+		logger.log(Level.INFO,"Found the date with a regular expression dd/mm/yyyy");
+
+end
+
+
+rule "Use a Collection"
+	
+	when
+		$vo : RoolVO( listValue contains  "items" )
+	then  
+		$vo.setStringValue("Done.");
+		logger.log(Level.INFO,"Used a collection");
+
+end
