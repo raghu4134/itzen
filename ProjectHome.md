@@ -1,0 +1,23 @@
+# iT Zen #
+This project is a storage place for useful code I have written and described on my blog
+http://briandupreez.net/.
+
+The original blogger address is (http://java-it-zen.blogspot.com/)
+
+
+## Update: ##
+Uploaded My Dark Blue Eclipse Settings.
+
+
+
+---
+
+
+## Disclaimer: ##
+
+You have the right to use the code posted on this web site that I have written in your own projects and
+upon doing so, you the programmer are solely responsible for determining it's worthiness for any given application or task.
+I clearly state that the code within these project is for learning purposes only and are not guaranteed to conform to any programming style, standard, or be an adequate answer for any given problem. I am not responsible for data loss, hardware damage, or disaster from your use of the code and you indemnify me for any portion of code that may be put to use within your application.
+I would like acknowledgement if you use any of the code listed within an application but it is not required.
+In the event that code is posted at this web site that was not written by me, it will only be by permission of the author of the particular code and it is your
+responsibility to check with the author of the code about his/her policies.
